@@ -1,0 +1,50 @@
+// Top-level build file where you can add configuration options common to all sub-projects/modules.
+
+buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:2.2.3'
+        classpath 'com.neenbedankt.gradle.plugins:android-apt:1.4'
+        // NOTE: Do not place your application dependencies here; they belong
+        // in the individual module build.gradle files
+    }
+}
+
+allprojects {
+    repositories {
+        jcenter()
+    }
+}
+
+task clean(type: Delete) {
+    delete rootProject.buildDir
+}
+
+// Define versions in a single place
+ext {
+    // Sdk and tools
+    minSdkVersion     = 16
+    targetSdkVersion  = 23
+    compileSdkVersion = 24
+    buildToolsVersion = '24.0.1'
+
+    versionCode = 1
+    versionName = '1.0.0'
+
+    //dependency injection
+    butterknifeVersion = '8.2.1'
+    daggerVersion = '2.0'
+    daggerCompiler = '2.0'
+
+    //web services integration
+    okhttpVersion              = '3.4.1'
+    retrofitVersion            = '2.1.0'
+    okhttpUrlconnectionVersion = '2.1.0'
+
+    rxAndroidVersion          = '1.0.1'
+    rxJavaVersion             = '1.0.14'
+
+    glideVersion              = '3.7.0'
+}
