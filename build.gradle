@@ -47,4 +47,6 @@ ext {
     rxJavaVersion             = '1.0.14'
 
     glideVersion              = '3.7.0'
+
+    recyclerViewVersion = '24.1.1'
 }
