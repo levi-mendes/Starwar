@@ -4,7 +4,7 @@
 
     <item
         android:title="@string/ler_qrcode"
-        android:id="@+id/itemSave"
+        android:id="@+id/itemLerQRCode"
         android:icon="@android:drawable/presence_video_away"
         android:orderInCategory="100"
         app:showAsAction="always" />

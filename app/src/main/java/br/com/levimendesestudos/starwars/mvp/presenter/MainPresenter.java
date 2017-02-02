@@ -1,5 +1,6 @@
 package br.com.levimendesestudos.starwars.mvp.presenter;
 
+import br.com.levimendesestudos.starwars.R;
 import br.com.levimendesestudos.starwars.mvp.contracts.MainMvp;
 
 /**
@@ -16,6 +17,13 @@ public class MainPresenter implements MainMvp.Presenter {
 
     @Override
     public void init() {
+        mView.configureList();
+    }
 
+    @Override
+    public void itemSelected(int itemId) {
+        if (itemId == R.id.itemLerQRCode) {
+            mView.callCameraActivity();
+        }
     }
 }
