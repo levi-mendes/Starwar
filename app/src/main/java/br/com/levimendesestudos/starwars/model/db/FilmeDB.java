@@ -8,7 +8,7 @@ import android.content.Context;
 
 public class FilmeDB extends DBGenericClass {
 
-    public static final String TB_NAME = "";
+    public static final String TB_NAME = "TB_FILME";
 
     public static final String ID  = "ID";
     public static final String URL = "URL";
