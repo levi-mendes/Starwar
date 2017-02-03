@@ -47,8 +47,10 @@ public class StarWarsDB extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(ScriptDatabase.DROP_TB_PERSONAGEM);
+        db.execSQL(ScriptDatabase.DROP_TB_FILME);
 
         db.execSQL(ScriptDatabase.CREATE_TB_PERSONAGEM);
+        db.execSQL(ScriptDatabase.CREATE_TB_FILME);
     }
 
     /**
