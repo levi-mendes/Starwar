@@ -24,6 +24,7 @@ public class PersonagemDeserializer implements JsonDeserializer<Object> {
         List<Filme> filmes = new ArrayList<>();
         JsonObject root = json.getAsJsonObject();
         retorno.nome = root.get("name").getAsString();
+        retorno.link = root.get("url").getAsString();
 
         JsonArray films = root.getAsJsonArray("films");
 
