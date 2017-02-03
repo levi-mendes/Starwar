@@ -22,20 +22,27 @@
         android:foreground="?attr/selectableItemBackground"
         />
 
-    <ProgressBar
+    <LinearLayout
         android:layout_centerInParent="true"
-        android:visibility="visible"
-        android:id="@+id/pbLoading"
-        android:layout_gravity="center"
+        android:orientation="vertical"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content">
 
-    <TextView
-        android:visibility="visible"
-        android:text="@string/lista_vazia"
-        android:id="@+id/tvListaVazia"
-        android:layout_centerInParent="true"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        <ProgressBar
+            android:visibility="gone"
+            android:id="@+id/pbLoading"
+            android:layout_gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:visibility="gone"
+            android:text="@string/lista_vazia"
+            android:id="@+id/tvListaVazia"
+            android:layout_centerInParent="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
 
 </RelativeLayout>
