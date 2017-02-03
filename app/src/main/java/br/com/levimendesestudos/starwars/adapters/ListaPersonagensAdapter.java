@@ -59,13 +59,13 @@ public class ListaPersonagensAdapter extends RecyclerView.Adapter<ListaPersonage
             }
         });
 
-        holder.tvNome.setText(p.nome);
+        holder.tvNome.setText(p.name);
         holder.tvUrl.setText(p.link);
     }
 
     private void callDetalhes(Personagem p) {
         Intent intent = new Intent(mContext, DetalhesActivity.class);
-        //intent.putExtra("personagem", p);
+        intent.putExtra("personagem", p);
         mContext.startActivity(intent);
     }
 
