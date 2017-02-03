@@ -22,7 +22,7 @@
         </activity>
 
         <activity android:name=".activities.QRCodeReaderActivity" />
-        <activity android:name=".activities.DetalhesActivity" />
+        <activity android:name=".activities.DetalhesActivity" android:windowSoftInputMode="stateAlwaysHidden"/>
 
     </application>
 
