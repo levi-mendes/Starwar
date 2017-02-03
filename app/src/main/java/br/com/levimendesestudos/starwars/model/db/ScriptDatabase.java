@@ -12,5 +12,10 @@ public class ScriptDatabase {
             PersonagemDB.LATITUDE  + " REAL NOT NULL,             "  +
             PersonagemDB.LONGITUDE + " REAL NOT NULL);";
 
+    public static final String CREATE_TB_FILME = "CREATE TABLE IF NOT EXISTS (" + FilmeDB.TB_NAME  + " (" +
+            FilmeDB.ID  + " INT PRIMARY KEY NOT NULL, " +
+            FilmeDB.URL + " REAL NOT NULL);";
+
     public static final String DROP_TB_PERSONAGEM = "DROP TABLE IF EXISTS " + PersonagemDB.TB_NAME;
+    public static final String DROP_TB_FILME      = "DROP TABLE IF EXISTS " + FilmeDB.TB_NAME;
 }
