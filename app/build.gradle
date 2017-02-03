@@ -39,6 +39,7 @@ dependencies {
     //RxAndroid
     compile "io.reactivex:rxandroid:$rootProject.rxAndroidVersion"
     compile "io.reactivex:rxjava:$rootProject.rxJavaVersion"
+    compile "com.squareup.retrofit:adapter-rxjava:$rootProject.adapterRxjavaVersion"
 
     //dagger
     compile "com.google.dagger:dagger:$rootProject.daggerVersion"
@@ -53,4 +54,9 @@ dependencies {
     compile "com.dlazaro66.qrcodereaderview:qrcodereaderview:$rootProject.qrcodeReaderVersion"
     compile "org.greenrobot:eventbus:3.0.0"
     compile "com.squareup.retrofit:converter-gson:$rootProject.converterGsonVersion"//gson converter
+
+    //RxAndroid
+    compile "io.reactivex:rxandroid:1.0.1"
+    compile "io.reactivex:rxjava:1.0.14"
+
 }

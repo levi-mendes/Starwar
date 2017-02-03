@@ -50,6 +50,7 @@ ext {
 
     recyclerViewVersion  = '24.1.1'
     converterGsonVersion = '2.0.0-beta2'
+    adapterRxjavaVersion = '2.0.0-beta2'
 
     qrcodeReaderVersion = '2.0.1'
     cardviewVersion     = '24.1.1'
