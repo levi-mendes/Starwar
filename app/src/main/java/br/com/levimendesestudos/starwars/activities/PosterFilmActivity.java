@@ -29,7 +29,7 @@ public class PosterFilmActivity extends AppCompatActivity {
         Glide.with(this)
                 .load(url)
                 .centerCrop()
-                //.placeholder(R.drawable.loading)
+                .placeholder(R.mipmap.the_movie_db)
                 .crossFade()
                 .into(ivRevistaCapa);
     }
