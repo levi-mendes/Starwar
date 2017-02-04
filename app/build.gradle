@@ -55,6 +55,8 @@ dependencies {
     compile "org.greenrobot:eventbus:3.0.0"
     compile "com.squareup.retrofit:converter-gson:$rootProject.converterGsonVersion"//gson converter
 
+    compile "com.github.bumptech.glide:glide:$rootProject.glideVersion"
+
     //RxAndroid
     compile "io.reactivex:rxandroid:1.0.1"
     compile "io.reactivex:rxjava:1.0.14"

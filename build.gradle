@@ -54,4 +54,7 @@ ext {
 
     qrcodeReaderVersion = '2.0.1'
     cardviewVersion     = '24.1.1'
+
+    //biblioteca para carregar e cachear imagem
+    glideVersion = '3.7.0'
 }
