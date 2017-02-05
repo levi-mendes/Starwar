@@ -50,15 +50,9 @@ public class ListaPersonagensAdapter extends RecyclerView.Adapter<ListaPersonage
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        final Personagem p = mList.get(position);
+        Personagem p = mList.get(position);
 
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                callDetalhes(p);
-            }
-        });
-
+        holder.itemView.setOnClickListener(view -> callDetalhes(p));
         holder.tvNome.setText(p.name);
         holder.tvUrl.setText(p.link);
     }
