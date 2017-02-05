@@ -10,6 +10,8 @@ import java.util.List;
 import br.com.levimendesestudos.starwars.model.Filme;
 import br.com.levimendesestudos.starwars.model.Personagem;
 
+import static java.lang.String.valueOf;
+
 /**
  * Created by 809778 on 02/02/2017.
  */
@@ -18,6 +20,7 @@ public class PersonagemDB extends DBGenericClass {
 
     public static final String TB_NAME   = "TB_PERSONAGEM";
 
+    public static final String ID         = "ID";
     public static final String NOME       = "NOME";
     public static final String LINK       = "LINK";
     public static final String LATITUDE   = "LATITUDE";
@@ -43,6 +46,7 @@ public class PersonagemDB extends DBGenericClass {
     public boolean inserir(Personagem p) {
         ContentValues values = new ContentValues();
 
+        values.put(ID,       p.id);
         values.put(NOME,       p.name);
         values.put(LINK,       p.link);
         values.put(HEIGHT,     p.height);
@@ -69,9 +73,9 @@ public class PersonagemDB extends DBGenericClass {
         while (cursor.moveToNext()) {
             Personagem p = new Personagem();
 
-            p.name = cursor.getString(cursor.getColumnIndex(NOME));
-            p.link = cursor.getString(cursor.getColumnIndex(LINK));
-
+            p.id        = cursor.getInt(cursor.getColumnIndex(ID));
+            p.name      = cursor.getString(cursor.getColumnIndex(NOME));
+            p.link      = cursor.getString(cursor.getColumnIndex(LINK));
             p.height    = cursor.getInt(cursor.getColumnIndex(HEIGHT));
             p.mass      = cursor.getInt(cursor.getColumnIndex(MASS));
             p.hairColor = cursor.getString(cursor.getColumnIndex(HAIR_COLOR));
@@ -82,13 +86,28 @@ public class PersonagemDB extends DBGenericClass {
             p.created   = cursor.getString(cursor.getColumnIndex(CREATED));
             p.edited    = cursor.getString(cursor.getColumnIndex(EDITED));
 
-            //List<Filme> films = filmeDB.buscarFilmes()
+            List<Filme> films = filmeDB.listar(p.id);
+
+            p.films = films;
 
             retorno.add(p);
         }
 
         fecharCursor(cursor);
 
+        return retorno;
+    }
+
+    public boolean jaExiste(Personagem p) {
+        boolean retorno = false;
+        String [] param = new String[]{valueOf(p.id)};
+        Cursor cursor = database.query(TB_NAME, null, ID + " = ?", param, null, null, null, null);
+
+        if (cursor.moveToFirst()) {
+            retorno = true;
+        }
+
+        fecharCursor(cursor);
         return retorno;
     }
 }
