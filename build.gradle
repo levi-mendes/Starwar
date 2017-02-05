@@ -57,4 +57,11 @@ ext {
 
     //biblioteca para carregar e cachear imagem
     glideVersion = '3.7.0'
+
+    //RX
+    rxJavaVersion    = '1.0.14'
+    rxAndroidVersion = '1.0.1'
+
+    //biblioteca de testes
+    robolectricVersion = '3.2.2'
 }

@@ -57,8 +57,9 @@ dependencies {
 
     compile "com.github.bumptech.glide:glide:$rootProject.glideVersion"
 
-    //RxAndroid
-    compile "io.reactivex:rxandroid:1.0.1"
-    compile "io.reactivex:rxjava:1.0.14"
+    //Rx
+    compile "io.reactivex:rxandroid:$rootProject.rxAndroidVersion"
+    compile "io.reactivex:rxjava:$rootProject.rxJavaVersion"
 
+    testCompile "org.robolectric:robolectric:$rootProject.robolectricVersion"
 }
