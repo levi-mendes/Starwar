@@ -24,6 +24,7 @@ public class PersonagemDeserializer implements JsonDeserializer<Object> {
         List<Filme> filmes = new ArrayList<>();
         JsonObject root = json.getAsJsonObject();
 
+        retorno.id        = id(root);
         retorno.name      = root.get("name").getAsString();
         retorno.link      = root.get("url").getAsString();
         retorno.height    = root.get("height").getAsInt();
@@ -43,7 +44,8 @@ public class PersonagemDeserializer implements JsonDeserializer<Object> {
 
             Filme filme = new Filme();
 
-            filme.url = url;
+            filme.idPersonagem = retorno.id;
+            filme.url          = url;
 
             filmes.add(filme);
         }
@@ -51,6 +53,22 @@ public class PersonagemDeserializer implements JsonDeserializer<Object> {
         retorno.films = filmes;
 
         return retorno;
+    }
+
+    /**
+     *
+     * pega o ultimo caracter para usar como PK
+     *
+     * @param jo
+     *
+     * @return
+     *
+     */
+    private int id(JsonObject jo) {
+        String s = jo.get("url").getAsString();
+        int id = Integer.parseInt(s.substring(s.length() - 2, s.length() - 1));
+
+        return id;
     }
 
     /*
