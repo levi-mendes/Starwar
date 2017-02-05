@@ -8,6 +8,6 @@ import java.io.Serializable;
 
 public class Filme implements Serializable {
 
-    public int id;
+    public int idPersonagem;
     public String url;
 }

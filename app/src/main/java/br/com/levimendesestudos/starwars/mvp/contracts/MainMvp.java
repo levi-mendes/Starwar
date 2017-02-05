@@ -10,7 +10,11 @@ import br.com.levimendesestudos.starwars.model.Personagem;
 
 public interface MainMvp {
 
-    interface View {
+    interface View extends BasicView {
+        int REQUEST_WRITE_EXTERNAL_STORAGE_PERMISSION = 16;
+        int REQUEST_ACCES_FINE_LOCATION_PERMISSION    = 17;
+        int REQUEST_CAMERA_PERMISSION                 = 18;
+
         void configureList();
         void callCameraActivity();
         void carregarLista(List<Personagem> list);
@@ -19,11 +23,20 @@ public interface MainMvp {
         void showListaVazia();
         void hideLoading();
         void hideListaVazia();
+        boolean accessFineLocation();
+        boolean camera();
+        boolean writeExternalStorage();
+        void requesAccessFineLocation();
+        void requesWriteExternalStorage();
+        void requesCamera();
+        void finalizar();
     }
 
     interface Presenter {
         void init();
         void itemSelected(int itemId);
         void buscarESalvar(String url);
+        boolean checkPermissions();
+        void requestPermissionsResult(int requestCode, int[] grantResults);
     }
 }

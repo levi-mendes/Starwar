@@ -7,7 +7,7 @@ package br.com.levimendesestudos.starwars.model.db;
 public class ScriptDatabase {
 
     public static final String CREATE_TB_PERSONAGEM = "CREATE TABLE IF NOT EXISTS " + PersonagemDB.TB_NAME  + " (" +
-            //PersonagemDB.ID      + " INT PRIMARY KEY NOT NULL, " +
+            PersonagemDB.ID         + " INT PRIMARY KEY NOT NULL, " +
             PersonagemDB.NOME       + " TEXT NOT NULL, "  +
             PersonagemDB.LINK       + " REAL NOT NULL, "  +
             PersonagemDB.HEIGHT     + " INT NULL, "  +
@@ -23,8 +23,8 @@ public class ScriptDatabase {
             PersonagemDB.LONGITUDE  + " REAL NULL);";
 
     public static final String CREATE_TB_FILME = "CREATE TABLE IF NOT EXISTS " + FilmeDB.TB_NAME  + " (" +
-            FilmeDB.ID  + " INT PRIMARY KEY NOT NULL, " +
-            FilmeDB.URL + " REAL NOT NULL);";
+            FilmeDB.ID_PERSONAGEM  + " INT NOT NULL, " +
+            FilmeDB.URL            + " TEXT NOT NULL);";
 
     public static final String DROP_TB_PERSONAGEM = "DROP TABLE IF EXISTS " + PersonagemDB.TB_NAME;
     public static final String DROP_TB_FILME      = "DROP TABLE IF EXISTS " + FilmeDB.TB_NAME;

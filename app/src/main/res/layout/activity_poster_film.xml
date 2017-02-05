@@ -8,6 +8,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
+    android:background="@color/background_activity"
     tools:context="br.com.levimendesestudos.starwars.activities.PosterFilmActivity">
 
     <ImageView
@@ -32,5 +33,13 @@
             android:layout_height="450dp" />
 
     </LinearLayout>
+
+    <TextView
+        android:text="http://www.globo.com"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+        android:id="@+id/tvSite"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
 
 </RelativeLayout>

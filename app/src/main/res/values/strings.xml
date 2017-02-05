@@ -13,4 +13,9 @@
     <string name="gender">Gender</string>
     <string name="created">Created</string>
     <string name="edited">Edited</string>
+    <string name="permissao_para_acessar_o_sdcard_foi_negada">Permissão para acessar o SDCard foi negada !</string>
+    <string name="permissao_para_acessar_a_camera_foi_negada">Permissão para acessar a câmera foi negada !</string>
+    <string name="permissao_para_obtencao_da_localizacao_foi_negada">Permissão para obtenção da localização foi negada !</string>
+    <string name="id">Id</string>
+    <string name="personagem_ja_existe">Personagem já existe !</string>
 </resources>
