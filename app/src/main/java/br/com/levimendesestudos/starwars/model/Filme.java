@@ -10,4 +10,5 @@ public class Filme implements Serializable {
 
     public int idPersonagem;
     public String url;
+    public String titulo;
 }
