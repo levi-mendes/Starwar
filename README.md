@@ -1,6 +1,12 @@
 # Starwar
 
-Levi José da Silva Mendes
+Para testar o aplicativo, faça o download e instale o apk que se encontra na aba "release".
+
+- Para fazer a leitura de um QRCode clique no botão laranja da ActionBar para que o leitor seja acionado.
+- Selecione o QRCode para que o aplicativo consiga efetuar a leitura.
+- Após a leitura o serviço será consultado e os dados retornados serão salvos na base de dados do SQLite e adicionado a lista.
+- Após clicar em um ítem da lista será aberta uma tela com os detalhes do ítem selecionado.
+
 
 Site http://goqr.me foi usado para a criação dos QRCode's
 
