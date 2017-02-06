@@ -64,4 +64,6 @@ ext {
 
     //biblioteca de testes
     robolectricVersion = '3.2.2'
+
+    designVersion = '24.1.1'
 }
