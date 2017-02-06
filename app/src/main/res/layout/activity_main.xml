@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    android:orientation="vertical"
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/activity_main"
@@ -15,7 +17,8 @@
     <!--android:clickable="true"-->
     <android.support.v7.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
         app:cardElevation="6dp"
         app:cardCornerRadius="6dp"
         app:cardUseCompatPadding="true"
@@ -34,27 +37,21 @@
 
     </android.support.v7.widget.CardView>
 
-    <LinearLayout
-        android:layout_centerInParent="true"
-        android:orientation="vertical"
+    <ProgressBar
+        android:visibility="gone"
+        android:id="@+id/pbLoading"
+        android:layout_gravity="center"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content" />
 
-        <ProgressBar
-            android:visibility="gone"
-            android:id="@+id/pbLoading"
-            android:layout_gravity="center"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+    <TextView
+        android:layout_gravity="center_horizontal"
+        android:textColor="#FFF"
+        android:visibility="gone"
+        android:text="@string/status"
+        android:id="@+id/tvStatus"
+        android:layout_centerInParent="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
 
-        <TextView
-            android:visibility="gone"
-            android:text="@string/lista_vazia"
-            android:id="@+id/tvListaVazia"
-            android:layout_centerInParent="true"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-
-    </LinearLayout>
-
-</RelativeLayout>
+</LinearLayout>
