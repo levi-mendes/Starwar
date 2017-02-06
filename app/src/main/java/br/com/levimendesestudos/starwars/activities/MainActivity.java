@@ -15,8 +15,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
-
 import org.greenrobot.eventbus.Subscribe;
 import java.util.List;
 import br.com.levimendesestudos.starwars.R;
@@ -25,7 +23,6 @@ import br.com.levimendesestudos.starwars.model.Personagem;
 import br.com.levimendesestudos.starwars.mvp.contracts.MainMvp;
 import br.com.levimendesestudos.starwars.mvp.presenter.MainPresenter;
 import br.com.levimendesestudos.starwars.utils.EventBusUtil;
-import br.com.levimendesestudos.starwars.utils.ToastUtil;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import static android.content.pm.PackageManager.PERMISSION_GRANTED;
@@ -39,8 +36,8 @@ public class MainActivity extends BaseActivity implements MainMvp.View {
     RecyclerView rvPersonagens;
     @BindView(R.id.pbLoading)
     ProgressBar pbLoading;
-    @BindView(R.id.tvListaVazia)
-    TextView tvListaVazia;
+    @BindView(R.id.tvStatus)
+    TextView tvStatus;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -137,8 +134,9 @@ public class MainActivity extends BaseActivity implements MainMvp.View {
     }
 
     @Override
-    public void showListaVazia() {
-        tvListaVazia.setVisibility(View.VISIBLE);
+    public void showTvStatus(int id) {
+        tvStatus.setVisibility(View.VISIBLE);
+        tvStatus.setText(id);
     }
 
     @Override
@@ -147,8 +145,8 @@ public class MainActivity extends BaseActivity implements MainMvp.View {
     }
 
     @Override
-    public void hideListaVazia() {
-        tvListaVazia.setVisibility(View.GONE);
+    public void hideTvStatus() {
+        tvStatus.setVisibility(View.GONE);
     }
 
     @Override
