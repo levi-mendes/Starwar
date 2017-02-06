@@ -20,9 +20,9 @@ public interface MainMvp {
         void carregarLista(List<Personagem> list);
         void adicionarItemNaLista(Personagem p);
         void showLoading();
-        void showListaVazia();
+        void showTvStatus(int id);
         void hideLoading();
-        void hideListaVazia();
+        void hideTvStatus();
         boolean accessFineLocation();
         boolean camera();
         boolean writeExternalStorage();
