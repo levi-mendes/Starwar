@@ -1,14 +1,14 @@
 package br.com.levimendesestudos.starwars.activities;
 
+import android.content.Intent;
+import android.graphics.drawable.Drawable;
+import android.support.design.widget.TextInputEditText;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.widget.ArrayAdapter;
 import android.widget.EditText;
-import android.widget.ListView;
-
-import java.util.ArrayList;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 import java.util.List;
-
 import br.com.levimendesestudos.starwars.R;
 import br.com.levimendesestudos.starwars.model.Filme;
 import br.com.levimendesestudos.starwars.model.Personagem;
@@ -20,29 +20,29 @@ import static java.lang.String.valueOf;
 public class DetalhesActivity extends AppCompatActivity {
 
     @BindView(R.id.etId)
-    EditText etId;
+    TextInputEditText etId;
     @BindView(R.id.etName)
-    EditText etName;
+    TextInputEditText etName;
     @BindView(R.id.etHeight)
-    EditText etHeight;
+    TextInputEditText etHeight;
     @BindView(R.id.etMassa)
-    EditText etMass;
+    TextInputEditText etMass;
     @BindView(R.id.etHairColor)
-    EditText etHairColor;
+    TextInputEditText etHairColor;
     @BindView(R.id.etSkinColor)
-    EditText etSkinColor;
+    TextInputEditText etSkinColor;
     @BindView(R.id.etEyeColor)
-    EditText etEyeColor;
+    TextInputEditText etEyeColor;
     @BindView(R.id.etBirthYear)
-    EditText etBirthYear;
+    TextInputEditText etBirthYear;
     @BindView(R.id.etGender)
-    EditText etGender;
+    TextInputEditText etGender;
     @BindView(R.id.etCreated)
-    EditText etCreated;
+    TextInputEditText etCreated;
     @BindView(R.id.etEdited)
-    EditText etEdited;
-    @BindView(R.id.lvFilms)
-    ListView lvFilms;
+    TextInputEditText etEdited;
+    @BindView(R.id.llFilmes)
+    LinearLayout llFilmes;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,8 +55,7 @@ public class DetalhesActivity extends AppCompatActivity {
         etName.setText(p.name);
         etId.setText(valueOf(p.id));
 
-        ArrayAdapter adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, urls(p.films));
-        lvFilms.setAdapter(adapter);
+        adicionarFilmes(p.films);
 
         etHeight.setText(valueOf(p.height));
         etMass.setText(valueOf(p.mass));
@@ -69,13 +68,23 @@ public class DetalhesActivity extends AppCompatActivity {
         etEdited.setText(p.edited);
     }
 
-    private List<String> urls(List<Filme> objs) {
-        List<String> retorno = new ArrayList<>();
-
+    private void adicionarFilmes(List<Filme> objs) {
         for (Filme f : objs) {
-            retorno.add(f.url);
-        }
+            TextView tvFilme = new TextView(this);
 
-        return retorno;
+            tvFilme.setTextSize(20f);
+            tvFilme.setPadding(15, 15, 15, 0);
+
+            tvFilme.setOnClickListener(view -> callPoster(f));
+            //tvFilme.setBackground(android.R.attr.selectableItemBackground);
+            tvFilme.setText(f.url);
+            llFilmes.addView(tvFilme);
+        }
+    }
+
+    private void callPoster(Filme f) {
+        Intent intent = new Intent(this, PosterFilmActivity.class);
+        intent.putExtra("filme", f);
+        startActivity(intent);
     }
 }
