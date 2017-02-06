@@ -65,9 +65,14 @@ public class PersonagemDeserializer implements JsonDeserializer<Object> {
      *
      */
     private int id(JsonObject jo) {
-        String s = jo.get("url").getAsString();
-        int id = Integer.parseInt(s.substring(s.length() - 2, s.length() - 1));
+        JsonElement je = jo.get("url");
 
-        return id;
+        if (je != null) {
+            String s = je.getAsString();
+            int id = Integer.parseInt(s.substring(s.length() - 2, s.length() - 1));
+            return id;
+        }
+
+        return 0;
     }
 }
