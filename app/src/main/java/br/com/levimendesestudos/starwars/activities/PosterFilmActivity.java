@@ -3,9 +3,7 @@ package br.com.levimendesestudos.starwars.activities;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.ImageView;
-
 import com.bumptech.glide.Glide;
-
 import br.com.levimendesestudos.starwars.R;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -29,7 +27,7 @@ public class PosterFilmActivity extends AppCompatActivity {
         //https://image.tmdb.org/t/p/w500/tgr5Pdy7ehZYBqBkN2K7Q02xgOb.jpg
         //https://image.tmdb.org/t/p/w500/6u1fYtxG5eqjhtCPDx04pJphQRW.jpg
         Glide.with(this)
-                .load(url)
+                .load("https://image.tmdb.org/t/p/w500/kqjL17yufvn9OVLyXYpvtyrFfak.jpg")
                 .centerCrop()
                 .placeholder(R.mipmap.the_movie_db)
                 .crossFade()
