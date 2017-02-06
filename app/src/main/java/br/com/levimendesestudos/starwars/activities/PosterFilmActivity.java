@@ -22,6 +22,8 @@ public class PosterFilmActivity extends AppCompatActivity {
 
         ButterKnife.bind(this);
 
+        //TODO NAO FINALIZADO
+
         String url = getIntent().getStringExtra("url");
 
         //https://image.tmdb.org/t/p/w500/tgr5Pdy7ehZYBqBkN2K7Q02xgOb.jpg
