@@ -11,4 +11,13 @@ public class Filme implements Serializable {
     public int idPersonagem;
     public String url;
     public String titulo;
+    public String posterPath;
+    public String overview;
+    public int id;
+    public String pathFile;
+
+    @Override
+    public String toString() {
+        return "titulo";
+    }
 }

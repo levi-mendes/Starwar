@@ -88,7 +88,7 @@ public class PersonagemDB extends DBGenericClass {
 
             List<Filme> films = filmeDB.listar(p.id);
 
-            p.films = films;
+            //p.films = films;
 
             retorno.add(p);
         }

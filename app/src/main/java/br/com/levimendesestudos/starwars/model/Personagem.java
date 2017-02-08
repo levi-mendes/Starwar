@@ -12,7 +12,7 @@ public class Personagem implements Serializable {
     public int id;
     public String link;
     public String name;
-    public List<Filme> films;
+    public List<String> urlFilmes;
     public int height;
     public int mass;
     public String hairColor;

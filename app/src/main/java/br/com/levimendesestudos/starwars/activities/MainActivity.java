@@ -48,7 +48,7 @@ public class MainActivity extends BaseActivity implements MainMvp.View {
 
         mPresenter = new MainPresenter(this);
         mPresenter.init();
-        //mPresenter.buscarESalvar("http://swapi.co/api/people/1/");
+        mPresenter.buscarESalvarPersonagem("http://swapi.co/api/people/1/");
     }
 
     @Override
@@ -99,7 +99,7 @@ public class MainActivity extends BaseActivity implements MainMvp.View {
     @Subscribe
     public void qrcode(String url) {
         //busca os dados na api pela url e salva os dados no SQLite
-        mPresenter.buscarESalvar(url);
+        mPresenter.buscarESalvarPersonagem(url);
     }
 
     /**

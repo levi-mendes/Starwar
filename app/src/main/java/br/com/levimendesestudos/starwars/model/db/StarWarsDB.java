@@ -3,6 +3,9 @@ package br.com.levimendesestudos.starwars.model.db;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.os.Environment;
+
+import java.io.File;
 
 /**
  * Created by 809778 on 02/02/2017.
@@ -10,7 +13,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 public class StarWarsDB extends SQLiteOpenHelper {
 
-    private static final String DB_NAME = "sw.db";
+    private static final String DB_NAME =  Environment.getExternalStorageDirectory().getPath() + File.separator + "sw.db";
     private static final int DB_VERSION = 1;
     private SQLiteDatabase mDatabase;
 

@@ -1,4 +1,4 @@
-package br.com.levimendesestudos.starwars.utils;
+package br.com.levimendesestudos.starwars.api;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;

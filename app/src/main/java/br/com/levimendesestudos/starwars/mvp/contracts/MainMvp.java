@@ -35,7 +35,8 @@ public interface MainMvp {
     interface Presenter {
         void init();
         void itemSelected(int itemId);
-        void buscarESalvar(String url);
+        void buscarESalvarPersonagem(String url);
+        void buscarESalvarFilmes(List<String> urls);
         boolean checkPermissions();
         void requestPermissionsResult(int requestCode, int[] grantResults);
     }

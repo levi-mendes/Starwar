@@ -8,8 +8,6 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
-import java.util.List;
-import br.com.levimendesestudos.starwars.model.Filme;
 import br.com.levimendesestudos.starwars.model.Personagem;
 
 /**
@@ -21,7 +19,6 @@ public class PersonagemDeserializer implements JsonDeserializer<Object> {
     @Override
     public Object deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
         Personagem retorno = new Personagem();
-        List<Filme> filmes = new ArrayList<>();
         JsonObject root = json.getAsJsonObject();
 
         retorno.id        = id(root);
@@ -38,19 +35,13 @@ public class PersonagemDeserializer implements JsonDeserializer<Object> {
         retorno.edited    = root.get("edited").getAsString();
 
         JsonArray films = root.getAsJsonArray("films");
+        retorno.urlFilmes = new ArrayList<>();
 
         for (JsonElement element : films) {
             String url = element.getAsString();
 
-            Filme filme = new Filme();
-
-            filme.idPersonagem = retorno.id;
-            filme.url          = url;
-
-            filmes.add(filme);
+            retorno.urlFilmes.add(url);
         }
-
-        retorno.films = filmes;
 
         return retorno;
     }

@@ -1,23 +1,21 @@
 package br.com.levimendesestudos.starwars.activities;
 
 import android.content.Intent;
-import android.graphics.drawable.Drawable;
 import android.support.design.widget.TextInputEditText;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import java.util.List;
 import br.com.levimendesestudos.starwars.R;
 import br.com.levimendesestudos.starwars.model.Filme;
 import br.com.levimendesestudos.starwars.model.Personagem;
+import br.com.levimendesestudos.starwars.mvp.contracts.DetalhesMVP;
+import br.com.levimendesestudos.starwars.mvp.presenter.DetalhesPresenter;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 import static java.lang.String.valueOf;
 
-public class DetalhesActivity extends AppCompatActivity {
+public class DetalhesActivity extends BaseActivity implements DetalhesMVP.View {
 
     @BindView(R.id.etId)
     TextInputEditText etId;
@@ -44,6 +42,9 @@ public class DetalhesActivity extends AppCompatActivity {
     @BindView(R.id.llFilmes)
     LinearLayout llFilmes;
 
+    private DetalhesMVP.Presenter mPresenter;
+    private Personagem mPersonagem;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,38 +52,47 @@ public class DetalhesActivity extends AppCompatActivity {
 
         ButterKnife.bind(this);
 
-        Personagem p = (Personagem) getIntent().getSerializableExtra("personagem");
-        etName.setText(p.name);
-        etId.setText(valueOf(p.id));
+        mPersonagem = (Personagem) getIntent().getSerializableExtra("personagem");
 
-        adicionarFilmes(p.films);
-
-        etHeight.setText(valueOf(p.height));
-        etMass.setText(valueOf(p.mass));
-        etHairColor.setText(p.hairColor);
-        etSkinColor.setText(p.skinColor);
-        etEyeColor.setText(p.eyeColor);
-        etBirthYear.setText(p.birthYear);
-        etGender.setText(p.gender);
-        etCreated.setText(p.created);
-        etEdited.setText(p.edited);
+        mPresenter = new DetalhesPresenter(this);
+        mPresenter.init();
     }
 
-    private void adicionarFilmes(List<Filme> objs) {
-        for (Filme f : objs) {
+    @Override
+    public void preencherCampos() {
+        etName.setText(mPersonagem.name);
+        etId.setText(valueOf(mPersonagem.id));
+
+        adicionarLinkFilmes();
+
+        etHeight.setText(valueOf(mPersonagem.height));
+        etMass.setText(valueOf(mPersonagem.mass));
+        etHairColor.setText(mPersonagem.hairColor);
+        etSkinColor.setText(mPersonagem.skinColor);
+        etEyeColor.setText(mPersonagem.eyeColor);
+        etBirthYear.setText(mPersonagem.birthYear);
+        etGender.setText(mPersonagem.gender);
+        etCreated.setText(mPersonagem.created);
+        etEdited.setText(mPersonagem.edited);
+    }
+
+    @Override
+    public void adicionarLinkFilmes() {
+        for (String url : mPersonagem.urlFilmes) {
             TextView tvFilme = new TextView(this);
 
             tvFilme.setTextSize(20f);
             tvFilme.setPadding(15, 15, 15, 0);
 
-            tvFilme.setOnClickListener(view -> callPoster(f));
+            tvFilme.setOnClickListener(view -> mPresenter.poster(url));
             //tvFilme.setBackground(android.R.attr.selectableItemBackground);
-            tvFilme.setText(f.url);
+            tvFilme.setText(url);
             llFilmes.addView(tvFilme);
         }
     }
 
-    private void callPoster(Filme f) {
+    @Override
+    public void callPoster(Filme f) {
         Intent intent = new Intent(this, PosterFilmActivity.class);
         intent.putExtra("filme", f);
         startActivity(intent);
