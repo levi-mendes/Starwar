@@ -1,4 +1,4 @@
-package br.com.levimendesestudos.starwars.api;
+package br.com.levimendesestudos.starwars.dagger.modules;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -6,8 +6,11 @@ import com.squareup.okhttp.OkHttpClient;
 import com.squareup.okhttp.Request;
 import java.util.concurrent.TimeUnit;
 
+import br.com.levimendesestudos.starwars.api.TmdbApi;
 import br.com.levimendesestudos.starwars.deserializers.FilmeDeserializer;
 import br.com.levimendesestudos.starwars.model.Filme;
+import dagger.Module;
+import dagger.Provides;
 import retrofit.GsonConverterFactory;
 import retrofit.Retrofit;
 import retrofit.RxJavaCallAdapterFactory;
@@ -16,11 +19,11 @@ import retrofit.RxJavaCallAdapterFactory;
  * Created by 809778 on 06/02/2017.
  */
 
-public class TmdbApiFactory {
+@Module
+public class TmdbApiModule {
 
-    //https://api.themoviedb.org/3/search/movie?api_key=38bbb298e8e249fab64461f12ada6c81&language=en-US&query=a%20new%20hope&page=1&include_adult=false&year=1977
 
-
+    @Provides
     public TmdbApi providesThemoviedbApi() {
         Gson gson = new GsonBuilder().registerTypeAdapter(Filme.class, new FilmeDeserializer()).create();
 
