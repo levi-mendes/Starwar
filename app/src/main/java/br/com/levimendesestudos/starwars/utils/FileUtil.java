@@ -1,18 +1,11 @@
 package br.com.levimendesestudos.starwars.utils;
 
-import android.content.Context;
-import android.os.Environment;
-import android.util.Log;
-
 import com.squareup.okhttp.ResponseBody;
-
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-
-import br.com.levimendesestudos.starwars.ApplicationStarWarApp;
 
 /**
  * Created by 809778 on 08/02/2017.
@@ -20,12 +13,9 @@ import br.com.levimendesestudos.starwars.ApplicationStarWarApp;
 
 public class FileUtil {
 
-    public static boolean writeResponseBodyToDisk(ResponseBody body) {
-        String path = Environment.getExternalStorageDirectory().getPath() + File.separator;
-
+    public static boolean writeResponseBodyToDisk(ResponseBody body, String absolutePath) {
         try {
-            // todo change the file location/name according to your needs
-            File futureStudioIconFile = new File(path + "zzzzz.jpg");
+            File futureStudioIconFile = new File(absolutePath);
 
             InputStream inputStream = null;
             OutputStream outputStream = null;
@@ -47,17 +37,16 @@ public class FileUtil {
                     }
 
                     outputStream.write(fileReader, 0, read);
-
                     fileSizeDownloaded += read;
-
-                    Log.d("writeResponseBodyToDisk", "file download: " + fileSizeDownloaded + " of " + fileSize);
                 }
 
                 outputStream.flush();
 
                 return true;
+
             } catch (IOException e) {
                 return false;
+
             } finally {
                 if (inputStream != null) {
                     inputStream.close();
