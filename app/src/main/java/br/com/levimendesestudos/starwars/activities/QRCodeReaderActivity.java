@@ -3,7 +3,6 @@ package br.com.levimendesestudos.starwars.activities;
 import android.graphics.PointF;
 import android.os.Bundle;
 import com.dlazaro66.qrcodereaderview.QRCodeReaderView;
-import org.greenrobot.eventbus.EventBus;
 import br.com.levimendesestudos.starwars.R;
 import br.com.levimendesestudos.starwars.mvp.contracts.QRCodeReaderMvp;
 import br.com.levimendesestudos.starwars.mvp.presenter.QRCodeReaderPresenter;

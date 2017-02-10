@@ -36,7 +36,7 @@ public interface MainMvp {
         void init();
         void itemSelected(int itemId);
         void buscarESalvarPersonagem(String url);
-        void buscarESalvarFilmes(List<String> urls);
+        void buscarIdFilme(List<String> urls);
         boolean checkPermissions();
         void requestPermissionsResult(int requestCode, int[] grantResults);
     }

@@ -8,13 +8,15 @@ import java.io.Serializable;
 
 public class Filme implements Serializable {
 
-    public int idPersonagem;
+    public int idPersonagem;//Foreign Key
     public String url;
-    public String titulo;
-    public String posterPath;
+    public String title;
+    public String posterName;
     public String overview;
     public int id;
     public String pathFile;
+    public String homepage;
+    public String releaseDate;
 
     @Override
     public String toString() {

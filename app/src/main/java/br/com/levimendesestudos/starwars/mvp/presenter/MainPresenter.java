@@ -1,36 +1,43 @@
 package br.com.levimendesestudos.starwars.mvp.presenter;
 
 import android.content.pm.PackageManager;
+import android.os.Environment;
 import android.util.Log;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.squareup.okhttp.ResponseBody;
-
+import java.io.File;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 import javax.inject.Inject;
 import br.com.levimendesestudos.starwars.R;
+import br.com.levimendesestudos.starwars.api.Swapi;
 import br.com.levimendesestudos.starwars.api.TmdbApi;
-import br.com.levimendesestudos.starwars.api.TmdbApiFactory;
+import br.com.levimendesestudos.starwars.api.TmdbImageApi;
 import br.com.levimendesestudos.starwars.dagger.DaggerInjector;
+import br.com.levimendesestudos.starwars.deserializers.IdFilmeDeserializer;
 import br.com.levimendesestudos.starwars.model.Filme;
 import br.com.levimendesestudos.starwars.model.Personagem;
 import br.com.levimendesestudos.starwars.model.db.FilmeDB;
 import br.com.levimendesestudos.starwars.model.db.PersonagemDB;
 import br.com.levimendesestudos.starwars.mvp.contracts.MainMvp;
-import br.com.levimendesestudos.starwars.api.RestConnection;
+import br.com.levimendesestudos.starwars.api.SwapiFactory;
 import br.com.levimendesestudos.starwars.utils.FileUtil;
 import retrofit.Call;
 import retrofit.Callback;
 import retrofit.GsonConverterFactory;
 import retrofit.Response;
 import retrofit.Retrofit;
+import retrofit.RxJavaCallAdapterFactory;
 import rx.Observer;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
-
-import static br.com.levimendesestudos.starwars.api.TmdbApi.BASE_URL_DOWNLOAD_IAMGE;
 import static br.com.levimendesestudos.starwars.mvp.contracts.MainMvp.View.REQUEST_ACCES_FINE_LOCATION_PERMISSION;
 import static br.com.levimendesestudos.starwars.mvp.contracts.MainMvp.View.REQUEST_CAMERA_PERMISSION;
 import static br.com.levimendesestudos.starwars.mvp.contracts.MainMvp.View.REQUEST_WRITE_EXTERNAL_STORAGE_PERMISSION;
@@ -46,7 +53,10 @@ public class MainPresenter implements MainMvp.Presenter {
     PersonagemDB mPersonagemDB;
     @Inject
     FilmeDB mFilmeDB;
-
+    @Inject
+    TmdbApi mTmdbApi;
+    @Inject
+    TmdbImageApi mTmdbImageApi;
     //@Inject
     //Swapi mSwapi;
 
@@ -158,8 +168,7 @@ public class MainPresenter implements MainMvp.Presenter {
     public void buscarESalvarPersonagem(String url) {
         mView.showLoading();
 
-        RestConnection conn = new RestConnection(url);
-        conn.providesSwapi().people()
+        SwapiFactory.providesSwapi(url).people()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<Personagem>() {
@@ -183,39 +192,95 @@ public class MainPresenter implements MainMvp.Presenter {
                         //mPersonagemDB.inserir(p);
                         //mView.adicionarItemNaLista(p);
 
-                        buscarESalvarFilmes(p.urlFilmes);
+                        buscarIdFilme(p.urlFilmes);
                     }
                 });
     }
 
     @Override
-    public void buscarESalvarFilmes(List<String> urls) {
+    public void buscarIdFilme(List<String> urls) {
+            /*
+    Observable<List<Parecer>> obs = Observable.create(new Observable.OnSubscribe<List<Parecer>>() {
+        @Override
+        public void call(Subscriber<? super List<Parecer>> subscriber) {
+            mView.showProgressBar();
+
+            List<Parecer> retorno = mParecerDB.listarFinalizados(mView.usuario().usuario);
+            List<Parecer> sortedSolicitacoes = new ArrayList<>(retorno);
+
+            Collections.sort(sortedSolicitacoes, (soli1, soli2) -> Integer.valueOf(soli1.idSolicitacao).compareTo(soli2.idSolicitacao));
+            subscriber.onNext(sortedSolicitacoes);
+            subscriber.onCompleted();
+        }
+    });
+    */
+
+        Gson gson = new GsonBuilder().registerTypeAdapter(Integer.class, new IdFilmeDeserializer()).create();
+
+        for (String url : urls) {
+
+            Retrofit retrofit = new Retrofit.Builder()
+                .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
+                .baseUrl(url)
+                .addConverterFactory(GsonConverterFactory.create(gson))
+                .build();
+
+            retrofit.create(TmdbApi.class)
+                .buscaId()
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
+                .subscribe(new Observer<Integer>() {
+                    @Override
+                    public void onCompleted() {
+                        Log.e("onCompleted", "onCompleted");
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        Log.e("onCompleted", e.getMessage(), e);
+                    }
+
+                    @Override
+                    public void onNext(Integer id) {
+                        String s = "levi";
+                        Log.e("onCompleted", s+ "  id: " + id);
+                    }
+                });
+        }
+    }
+
+
+
+    private String year(String s) {
+        try {
+            Date date = new SimpleDateFormat("yyyy-MM-dd").parse(s);
+            Calendar cal = Calendar.getInstance();
+            cal.setTime(date);
+
+            return String.valueOf(cal.get(Calendar.YEAR));
+
+        } catch (ParseException e) {
+            Log.e("year", e.getMessage(), e);
+        }
+
+        return "";
+    }
+
+    private void pesquisarDetalhesFilme(Filme f) {
         Map<String, String> params = new HashMap<>();
 
-        /*
-        https://api.themoviedb.org
-        /3/search/movie
-                ?api_key=38bbb298e8e249fab64461f12ada6c81
-                &language=
-                &query=a%20new%20hope
-                &page=1
-                &include_adult=false
-                &year=1977
-        */
-
         params.put("language",      "en-US");
-        params.put("api_key",       "38bbb298e8e249fab64461f12ada6c81");
-        params.put("query",         "A%20new%20Hope");
+        params.put("api_key",       TmdbApi.API_KEY);
+        params.put("query",         f.title);
         params.put("page",          "1");
         params.put("include_adult", "false");
-        params.put("year",          "1977");
+        params.put("year",          year(f.releaseDate));//1977-05-25
 
-        TmdbApiFactory tmdb = new TmdbApiFactory();
-        tmdb.providesThemoviedbApi()
-                .search(params)
+        /*
+        mTmdbApi.search(params)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Observer<Filme>() {
+                .subscribe(new Observer<Integer>() {
 
                     @Override
                     public void onCompleted() {
@@ -228,75 +293,36 @@ public class MainPresenter implements MainMvp.Presenter {
                     }
 
                     @Override
-                    public void onNext(Filme f) {
-                        int a = 10;
-                        Log.e("onNext", f.toString() + " a value: " + a) ;
-
-                        //https://image.tmdb.org/t/p/w500/kqjL17yufvn9OVLyXYpvtyrFfak.jpg
-
-                        // TODO criar arquivo e atribuir o path ao atributo  f.pathFile
-
-                        //getRetrofitImage("https://image.tmdb.org/t/p/w500/kqjL17yufvn9OVLyXYpvtyrFfak.jpg");
-                        getRetrofitImage(f.posterPath);
+                    public void onNext(Integer id) {
+                        String absolutePath = Environment.getExternalStorageDirectory().getPath() + File.separator + f.posterName;
+                        getRetrofitImage(f.posterName, absolutePath);
+                        f.pathFile = absolutePath;
+                        mFilmeDB.inserir(f);
                     }
                 });
-
-
-
-
-        for (String url : urls) {
-            //mFilmeDB.inserir(url);
-        }
+                */
     }
 
-    /*
-       public Swapi providesSwapi() {
-        Gson gson = new GsonBuilder().registerTypeAdapter(Personagem.class, new PersonagemDeserializer()).create();
-
-        Retrofit retrofit = new Retrofit.Builder()
-                .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
-                .baseUrl(mUrl)
-                .client(providesOkHttoClient())
-                .addConverterFactory(GsonConverterFactory.create(gson))
-                .build();
-
-        return retrofit.create(Swapi.class);
-    }
-     */
 
 
+    private void getRetrofitImage(String image, String absolutePath) {
+        mView.showTvStatus(R.string.buscando_poster);
 
-    private void getRetrofitImage(String image) {
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(BASE_URL_DOWNLOAD_IAMGE)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-
-        TmdbApi service = retrofit.create(TmdbApi.class);
-
-        Call<ResponseBody> call = service.downloadFileWithDynamicUrlAsync(image);
-
+        Call<ResponseBody> call = mTmdbImageApi.downloadFileWithDynamicUrlAsync(image);
         call.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Response<ResponseBody> response, Retrofit retrofit) {
-
                 try {
-
-                    Log.e("onResponse", "Response came from server");
-                    boolean FileDownloaded = FileUtil.writeResponseBodyToDisk(response.body());
-
-                    Log.e("onResponse", "Image is downloaded and saved ? " + FileDownloaded);
+                    FileUtil.writeResponseBodyToDisk(response.body(), absolutePath);
 
                 } catch (Exception e) {
-                    Log.e("onResponse", "There is an error");
-                    e.printStackTrace();
+                    Log.e("onResponse", e.getMessage(), e);
                 }
-
             }
 
             @Override
             public void onFailure(Throwable t) {
-                Log.d("onFailure", t.toString());
+                Log.e("onFailure", t.toString(), t);
             }
         });
     }

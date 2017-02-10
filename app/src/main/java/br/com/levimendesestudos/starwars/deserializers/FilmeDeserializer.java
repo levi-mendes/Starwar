@@ -27,10 +27,12 @@ public class FilmeDeserializer implements JsonDeserializer<Object> {
         int id            = element.getAsJsonObject().get("id").getAsInt();
         String posterPath = element.getAsJsonObject().get("poster_path").getAsString();
         String overview   = element.getAsJsonObject().get("overview").getAsString();
+        String releaseDate = element.getAsJsonObject().get("release_date").getAsString();
 
-        retorno.id         = id;
-        retorno.posterPath = posterPath.replace("/", "");
-        retorno.overview   = overview;
+        retorno.id          = id;
+        retorno.posterName  = posterPath.replace("/", "");
+        retorno.overview    = overview;
+        retorno.releaseDate = releaseDate;
 
         return retorno;
     }
